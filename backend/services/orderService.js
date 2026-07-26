@@ -1,7 +1,23 @@
 import pool from '../db/connect.js';
 
+async function calculateTotal(items) {
+  let total = 0;
+  for (const item of items) {
+    const result = await pool.query(
+      'SELECT price FROM products WHERE LOWER(name) LIKE LOWER($1) LIMIT 1',
+      [`%${item.name}%`]
+    );
+    if (result.rows.length > 0) {
+      total += parseFloat(result.rows[0].price) * item.quantity;
+    }
+  }
+  return total;
+}
+
 export async function saveOrder(customerPhone, orderDetails) {
-  const { customer_name, items, delivery_time, total_amount } = orderDetails;
+  const { customer_name, items, delivery_time } = orderDetails;
+
+  const total_amount = await calculateTotal(items);
 
   const result = await pool.query(
     `INSERT INTO orders 
