@@ -11,8 +11,8 @@ function Deliveries() {
 
   const fetchData = async () => {
     const [d, o] = await Promise.all([
-      axios.get('http://localhost:3000/api/deliveries', { headers: { Authorization: `Bearer ${token}` } }),
-      axios.get('http://localhost:3000/api/orders', { headers: { Authorization: `Bearer ${token}` } }),
+      axios.get(`${import.meta.env.VITE_API_URL}/api/deliveries`, { headers: { Authorization: `Bearer ${token}` } }),
+      axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, { headers: { Authorization: `Bearer ${token}` } }),
     ])
     setDeliveries(d.data)
     setOrders(o.data)
@@ -21,14 +21,14 @@ function Deliveries() {
   useEffect(() => { fetchData() }, [])
 
   const addDelivery = async () => {
-    await axios.post('http://localhost:3000/api/deliveries', newDelivery, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/deliveries`, newDelivery, { headers: { Authorization: `Bearer ${token}` } })
     setNewDelivery({ order_id: '', delivery_person: '', estimated_time: '' })
     setShowForm(false)
     fetchData()
   }
 
   const updateStatus = async (id, status) => {
-    await axios.patch(`http://localhost:3000/api/deliveries/${id}`, { status }, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.patch(`${import.meta.env.VITE_API_URL}/api/deliveries/${id}`, { status }, { headers: { Authorization: `Bearer ${token}` } })
     fetchData()
   }
 
@@ -47,7 +47,7 @@ function Deliveries() {
           <h1 style={{ fontSize: '24px', fontWeight: '600', color: 'white', margin: '0 0 4px' }}>🚚 Deliveries</h1>
           <p style={{ color: 'rgba(255,255,255,0.6)', margin: 0, fontSize: '14px' }}>Track and manage deliveries</p>
         </div>
-        <button onClick={() => setShowForm(!showForm)} style={{ padding: '10px 20px', backgroundImage: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
+        <button onClick={() => setShowForm(!showForm)} style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
           + Assign Delivery
         </button>
       </div>
@@ -73,7 +73,7 @@ function Deliveries() {
             </div>
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button onClick={addDelivery} style={{ padding: '10px 20px', backgroundImage: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>Assign</button>
+            <button onClick={addDelivery} style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>Assign</button>
             <button onClick={() => setShowForm(false)} style={{ padding: '10px 20px', background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', fontSize: '14px', cursor: 'pointer' }}>Cancel</button>
           </div>
         </div>

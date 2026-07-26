@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import PageLayout from '../components/PageLayout'
 
@@ -17,7 +16,7 @@ function Dashboard() {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await axios.get('http://localhost:3000/api/orders', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setOrders(res.data)
@@ -36,7 +35,7 @@ function Dashboard() {
     try {
       const token = localStorage.getItem('token')
       await axios.patch(
-        `http://localhost:3000/api/orders/${id}/status`,
+        `${import.meta.env.VITE_API_URL}/api/orders/${id}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -125,6 +124,7 @@ function Dashboard() {
               orders.map(order => {
                 const items = Array.isArray(order.items) ? order.items : JSON.parse(order.items)
                 const statusColor = getStatusColor(order.status)
+                const cleanPhone = order.customer_phone.replace('whatsapp:', '').replace('+', '').replace(/\s/g, '')
                 return (
                   <tr key={order.id} style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
                     <td style={{ padding: '12px 16px', color: 'white', fontWeight: '500' }}>{order.customer_name || 'Unknown'}</td>
@@ -144,7 +144,7 @@ function Dashboard() {
                       </select>
                     </td>
                     <td style={{ padding: '12px 16px' }}>
-                      <a href={'https://wa.me/' + order.customer_phone.replace('whatsapp:', '').replace('+', '').replace(/\s/g, '')} target="_blank" rel="noreferrer" style={{ padding: '5px 10px', background: 'rgba(37,211,102,0.2)', border: '1px solid rgba(37,211,102,0.4)', borderRadius: '6px', color: '#4ade80', fontSize: '12px', textDecoration: 'none', display: 'inline-block' }}>💬 Reply</a>
+                      <a href={'https://wa.me/' + cleanPhone} target="_blank" rel="noreferrer" style={{ padding: '5px 10px', background: 'rgba(37,211,102,0.2)', border: '1px solid rgba(37,211,102,0.4)', borderRadius: '6px', color: '#4ade80', fontSize: '12px', textDecoration: 'none', display: 'inline-block' }}>💬 Reply</a>
                     </td>
                   </tr>
                 )

@@ -19,8 +19,8 @@ function AIAssistant() {
     try {
       const token = localStorage.getItem('token')
       const [ordersRes, inventoryRes] = await Promise.all([
-        axios.get('http://localhost:3000/api/orders', { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get('http://localhost:3000/api/inventory', { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/inventory`, { headers: { Authorization: `Bearer ${token}` } }),
       ])
 
       const context = `
@@ -93,7 +93,7 @@ function AIAssistant() {
             placeholder="Ask: Which product sold most? Who are top customers?"
             style={{ flex: 1, padding: '12px 16px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.1)', color: 'white', fontSize: '14px', outline: 'none' }}
           />
-          <button onClick={sendMessage} disabled={loading} style={{ padding: '12px 20px', backgroundImage: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
+          <button onClick={sendMessage} disabled={loading} style={{ padding: '12px 20px', background: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
             Send
           </button>
         </div>

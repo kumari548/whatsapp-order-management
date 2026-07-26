@@ -9,8 +9,8 @@ function Notifications() {
 
   useEffect(() => {
     Promise.all([
-      axios.get('http://localhost:3000/api/orders', { headers: { Authorization: `Bearer ${token}` } }),
-      axios.get('http://localhost:3000/api/inventory', { headers: { Authorization: `Bearer ${token}` } }),
+      axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, { headers: { Authorization: `Bearer ${token}` } }),
+      axios.get(`${import.meta.env.VITE_API_URL}/api/inventory`, { headers: { Authorization: `Bearer ${token}` } }),
     ]).then(([o, i]) => {
       setOrders(o.data)
       setInventory(i.data)

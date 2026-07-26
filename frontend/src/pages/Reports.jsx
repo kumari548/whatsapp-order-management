@@ -7,7 +7,7 @@ function Reports() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/orders', { headers: { Authorization: `Bearer ${token}` } })
+    axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => setOrders(res.data))
   }, [])
 
@@ -63,7 +63,7 @@ function Reports() {
         <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', marginBottom: '20px' }}>
           Export your orders data as CSV file — open in Excel or Google Sheets
         </div>
-        <button onClick={downloadCSV} style={{ padding: '12px 24px', backgroundImage: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <button onClick={downloadCSV} style={{ padding: '12px 24px', background: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
           📥 Download Orders CSV
         </button>
       </div>

@@ -10,7 +10,7 @@ function Categories() {
   const token = localStorage.getItem('token')
 
   const fetchCategories = async () => {
-    const res = await axios.get('http://localhost:3000/api/categories', { headers: { Authorization: `Bearer ${token}` } })
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`, { headers: { Authorization: `Bearer ${token}` } })
     setCategories(res.data)
   }
 
@@ -18,18 +18,18 @@ function Categories() {
 
   const addCategory = async () => {
     if (!newName.trim()) return
-    await axios.post('http://localhost:3000/api/categories', { name: newName }, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/categories`, { name: newName }, { headers: { Authorization: `Bearer ${token}` } })
     setNewName('')
     fetchCategories()
   }
 
   const deleteCategory = async (id) => {
-    await axios.delete(`http://localhost:3000/api/categories/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.delete(`${import.meta.env.VITE_API_URL}/api/categories/${id}`, { headers: { Authorization: `Bearer ${token}` } })
     fetchCategories()
   }
 
   const updateCategory = async (id) => {
-    await axios.patch(`http://localhost:3000/api/categories/${id}`, { name: editName }, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.patch(`${import.meta.env.VITE_API_URL}/api/categories/${id}`, { name: editName }, { headers: { Authorization: `Bearer ${token}` } })
     setEditingId(null)
     fetchCategories()
   }

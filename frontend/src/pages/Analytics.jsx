@@ -7,7 +7,7 @@ function Analytics() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/orders', { headers: { Authorization: `Bearer ${token}` } })
+    axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => setOrders(res.data))
   }, [])
 

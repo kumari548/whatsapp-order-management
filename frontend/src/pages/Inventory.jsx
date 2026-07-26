@@ -13,7 +13,7 @@ function Inventory() {
 
   const fetchInventory = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/inventory', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/inventory`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setItems(res.data)
@@ -26,7 +26,7 @@ function Inventory() {
 
   const addItem = async () => {
     try {
-      await axios.post('http://localhost:3000/api/inventory', newItem, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/inventory`, newItem, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setNewItem({ item_name: '', quantity: '', unit: '', low_stock_alert: '' })
@@ -39,7 +39,7 @@ function Inventory() {
 
   const updateQuantity = async (id, quantity) => {
     try {
-      await axios.patch(`http://localhost:3000/api/inventory/${id}`, { quantity }, { headers: { Authorization: `Bearer ${token}` } })
+      await axios.patch(`${import.meta.env.VITE_API_URL}/api/inventory/${id}`, { quantity }, { headers: { Authorization: `Bearer ${token}` } })
       fetchInventory()
     } catch (err) {
       console.error('Failed to update quantity:', err)
@@ -48,7 +48,7 @@ function Inventory() {
 
   const updateItem = async (id, item_name, unit, low_stock_alert) => {
     try {
-      await axios.patch(`http://localhost:3000/api/inventory/${id}`, { item_name, unit, low_stock_alert }, { headers: { Authorization: `Bearer ${token}` } })
+      await axios.patch(`${import.meta.env.VITE_API_URL}/api/inventory/${id}`, { item_name, unit, low_stock_alert }, { headers: { Authorization: `Bearer ${token}` } })
       fetchInventory()
     } catch (err) {
       console.error('Failed to update item:', err)
@@ -66,7 +66,7 @@ function Inventory() {
           <h1 style={{ fontSize: '24px', fontWeight: '600', color: 'white', margin: '0 0 4px' }}>Inventory</h1>
           <p style={{ color: 'rgba(255,255,255,0.6)', margin: 0, fontSize: '14px' }}>Track your stock levels</p>
         </div>
-        <button onClick={() => setShowForm(!showForm)} style={{ padding: '10px 20px', backgroundImage: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
+        <button onClick={() => setShowForm(!showForm)} style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
           + Add Item
         </button>
       </div>
@@ -98,7 +98,7 @@ function Inventory() {
             ))}
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button onClick={addItem} style={{ padding: '10px 20px', backgroundImage: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>Save item</button>
+            <button onClick={addItem} style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>Save item</button>
             <button onClick={() => setShowForm(false)} style={{ padding: '10px 20px', background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', fontSize: '14px', cursor: 'pointer' }}>Cancel</button>
           </div>
         </div>
@@ -138,7 +138,7 @@ function Inventory() {
                   <td style={{ padding: '14px 16px' }}>
                     {editingId === item.id ? (
                       <div style={{ display: 'flex', gap: '6px' }}>
-                        <button onClick={() => { updateItem(item.id, editData.item_name, editData.unit, editData.low_stock_alert); setEditingId(null) }} style={{ padding: '5px 12px', borderRadius: '6px', backgroundImage: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', cursor: 'pointer', fontSize: '12px', fontWeight: '600' }}>Save</button>
+                        <button onClick={() => { updateItem(item.id, editData.item_name, editData.unit, editData.low_stock_alert); setEditingId(null) }} style={{ padding: '5px 12px', borderRadius: '6px', background: 'linear-gradient(135deg, #16a34a, #25D366)', color: 'white', border: 'none', cursor: 'pointer', fontSize: '12px', fontWeight: '600' }}>Save</button>
                         <button onClick={() => setEditingId(null)} style={{ padding: '5px 12px', borderRadius: '6px', background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)', cursor: 'pointer', fontSize: '12px' }}>Cancel</button>
                       </div>
                     ) : (

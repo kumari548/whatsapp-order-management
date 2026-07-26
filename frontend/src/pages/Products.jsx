@@ -13,8 +13,8 @@ function Products() {
 
   const fetchData = async () => {
     const [p, c] = await Promise.all([
-      axios.get('http://localhost:3000/api/products', { headers: { Authorization: `Bearer ${token}` } }),
-      axios.get('http://localhost:3000/api/categories', { headers: { Authorization: `Bearer ${token}` } }),
+      axios.get(`${import.meta.env.VITE_API_URL}/api/products`, { headers: { Authorization: `Bearer ${token}` } }),
+      axios.get(`${import.meta.env.VITE_API_URL}/api/categories`, { headers: { Authorization: `Bearer ${token}` } }),
     ])
     setProducts(p.data)
     setCategories(c.data)
@@ -32,7 +32,7 @@ function Products() {
 
   const addProduct = async () => {
     try {
-      await axios.post('http://localhost:3000/api/products', newProduct, { headers: { Authorization: `Bearer ${token}` } })
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/products`, newProduct, { headers: { Authorization: `Bearer ${token}` } })
       setNewProduct({ name: '', price: '', category_id: '', stock: '', unit: '', image_url: '' })
       setShowForm(false)
       fetchData()
@@ -42,12 +42,12 @@ function Products() {
   }
 
   const deleteProduct = async (id) => {
-    await axios.delete(`http://localhost:3000/api/products/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.delete(`${import.meta.env.VITE_API_URL}/api/products/${id}`, { headers: { Authorization: `Bearer ${token}` } })
     fetchData()
   }
 
   const updateProduct = async (id) => {
-    await axios.patch(`http://localhost:3000/api/products/${id}`, editData, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.patch(`${import.meta.env.VITE_API_URL}/api/products/${id}`, editData, { headers: { Authorization: `Bearer ${token}` } })
     setEditingId(null)
     fetchData()
   }

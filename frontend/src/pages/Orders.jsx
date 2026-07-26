@@ -9,7 +9,7 @@ function Orders() {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await axios.get('http://localhost:3000/api/orders', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setOrders(res.data)
@@ -28,7 +28,7 @@ function Orders() {
     try {
       const token = localStorage.getItem('token')
       await axios.patch(
-        `http://localhost:3000/api/orders/${id}/status`,
+        `${import.meta.env.VITE_API_URL}/api/orders/${id}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -76,6 +76,7 @@ function Orders() {
           filtered.map(order => {
             const items = Array.isArray(order.items) ? order.items : JSON.parse(order.items)
             const statusColor = getStatusColor(order.status)
+            const cleanPhone = order.customer_phone.replace('whatsapp:', '').replace('+', '').replace(/\s/g, '')
             return (
               <div key={order.id} style={{
                 background: 'rgba(255,255,255,0.08)', borderRadius: '16px',
@@ -113,7 +114,7 @@ function Orders() {
                     <option value="preparing" style={{ color: 'black' }}>Preparing</option>
                     <option value="delivered" style={{ color: 'black' }}>Delivered</option>
                   </select>
-                  <a href={'https://wa.me/' + order.customer_phone.replace('whatsapp:', '').replace('+', '').replace(/\s/g, '')} target="_blank" rel="noreferrer" style={{ padding: '8px 14px', background: 'rgba(37,211,102,0.2)', border: '1px solid rgba(37,211,102,0.4)', borderRadius: '8px', color: '#4ade80', fontSize: '13px', textDecoration: 'none' }}>💬 Reply</a>
+                  <a href={'https://wa.me/' + cleanPhone} target="_blank" rel="noreferrer" style={{ padding: '8px 14px', background: 'rgba(37,211,102,0.2)', border: '1px solid rgba(37,211,102,0.4)', borderRadius: '8px', color: '#4ade80', fontSize: '13px', textDecoration: 'none' }}>💬 Reply</a>
                 </div>
               </div>
             )
