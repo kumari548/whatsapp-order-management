@@ -152,8 +152,23 @@ To receive real WhatsApp messages locally, expose your backend with [ngrok](http
 ---
 
 ## 📸 Screenshots
+### Login
+![Login page](screenshots/login.jpeg)
 
-*(Add dashboard, orders, and products page screenshots here)*
+###Dashboard
+ ![alt text](dashboard.jpeg)
+
+###Orders
+![alt text](orders.jpeg)
+
+###Products
+![alt text](products.jpeg) 
+
+###Analytics
+![alt text](analytics.jpeg) 
+
+###Whatsapp order flow
+![alt text](whatsapp-flow.jpeg) 
 
 ---
 
@@ -168,4 +183,4 @@ To receive real WhatsApp messages locally, expose your backend with [ngrok](http
 
 ## 👤 Author
 
-Built by **Aravind** as a full-stack portfolio project — end-to-end WhatsApp automation, AI integration, and a complete multi-page admin dashboard, deployed and live.
+Built by **KUMARI** as a full-stack portfolio project — end-to-end WhatsApp automation, AI integration, and a complete multi-page admin dashboard, deployed and live.
