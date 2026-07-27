@@ -156,19 +156,19 @@ To receive real WhatsApp messages locally, expose your backend with [ngrok](http
 ![Login page](screenshots/login.jpeg)
 
 ###Dashboard
- ![alt text](dashboard.jpeg)
+ ![Dashboard](screenshots/dashboard.jpeg)
 
 ###Orders
-![alt text](orders.jpeg)
+![Orders page](screenshots/orders.jpeg)
 
 ###Products
-![alt text](products.jpeg) 
+![Products page](screenshots/products.jpeg) 
 
 ###Analytics
-![alt text](analytics.jpeg) 
+![Analytics page](screenshots/analytics.jpeg) 
 
 ###Whatsapp order flow
-![alt text](whatsapp-flow.jpeg) 
+![Whatsapp conversation](screenshots/whatsapp-flow.jpeg) 
 
 ---
 
